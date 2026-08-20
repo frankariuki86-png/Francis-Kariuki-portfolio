@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 function ServiceIcon({ title }) {
   const common = {
     width: 18,
@@ -51,35 +49,19 @@ const services = [
 ]
 
 export default function Services() {
-  const [showAll, setShowAll] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
-    const updateViewport = () => setIsMobile(mediaQuery.matches)
-    updateViewport()
-    mediaQuery.addEventListener('change', updateViewport)
-    return () => mediaQuery.removeEventListener('change', updateViewport)
-  }, [])
-
-  const visibleServices = isMobile && !showAll ? services.slice(0, 3) : services
-
   return (
-    <section id="services" className={`section services-section ${showAll ? 'services-expanded' : ''} fade-up`}>
+    <section id="services" className="section services-section fade-up">
       <p className="section-kicker">Services</p>
       <h2 className="section-title">What I Can Help You Build</h2>
       <p className="section-sub">Flexible engagement from software and IT infrastructure to branding and digital operations.</p>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {visibleServices.map((service, index) => (
+        {services.map((service, index) => (
           <div key={service.title}>
             <Card index={index + 1} title={service.title} desc={service.desc} />
           </div>
         ))}
       </div>
-      <button type="button" className="btn-ghost content-more" onClick={() => setShowAll((value) => !value)}>
-        {showAll ? 'Show Less ↑' : 'View All Services ↓'}
-      </button>
     </section>
   )
 }
