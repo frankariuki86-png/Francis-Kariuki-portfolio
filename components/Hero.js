@@ -46,14 +46,16 @@ export default function Hero() {
         <div className="fade-up">
           <p className="section-kicker">Software Engineer · Builder · Founder</p>
           <h1 className="hero-name">I build <span style={{ color: 'var(--accent)' }}>digital products</span> that solve real problems.</h1>
+          <h2 className="hero-mobile-title">Software Engineer &amp; Technology Solutions Specialist</h2>
           <p className="text-2xl mt-4 font-bold">{identity.name}</p>
           <p className="text-lg text-slate-300 mt-1">{identity.fullTitle}</p>
-          <p className="section-sub">
+          <p className="section-sub hero-long-description">
             Software Engineer, Full-Stack Developer and Founder of BluePeak Tech Solutions, building modern software, web applications and practical technology solutions.
           </p>
+          <p className="section-sub hero-short-description">I build software, web applications and practical technology solutions.</p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#projects" className="btn-primary">Explore My Work -&gt;</a>
+            <a href="#projects" className="btn-primary">View My Work -&gt;</a>
             <a href="#contact" className="btn-ghost">Let's Talk -&gt;</a>
           </div>
 

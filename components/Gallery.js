@@ -13,7 +13,7 @@ export default function Gallery(){
     if (activeCategory === 'All') return images
     return images.filter((item) => item.category === activeCategory)
   }, [activeCategory, images])
-  const visibleImages = showAll || activeCategory !== 'All' ? filteredImages : filteredImages.slice(0, 6)
+  const visibleImages = filteredImages
 
   const activeIndex = activeImage ? filteredImages.findIndex((item) => item.src === activeImage.src) : -1
   const showPrevious = () => {
@@ -37,7 +37,7 @@ export default function Gallery(){
   })
 
   return (
-    <section id="gallery" className="section fade-up">
+    <section id="gallery" className={`section gallery-section ${showAll ? 'gallery-expanded' : ''} fade-up`}>
       <p className="section-kicker">Creative Work</p>
       <h2 className="section-title">Creative Work</h2>
       <p className="section-sub">Design, branding and digital content created for businesses, organizations and social media.</p>
@@ -56,11 +56,11 @@ export default function Gallery(){
       </div>
 
       <div className="gallery-masonry editorial-gallery">
-        {visibleImages.map((item) => (
+        {visibleImages.map((item, index) => (
           <button
             key={item.src}
             type="button"
-            className={`gallery-card ${item.category === 'Branding' ? 'tall' : ''} ${item.category === 'Certificates' ? 'wide' : ''}`}
+            className={`gallery-card ${index > 3 ? 'mobile-art-hidden' : ''} ${item.category === 'Branding' ? 'tall' : ''} ${item.category === 'Certificates' ? 'wide' : ''}`}
             onClick={() => setActiveImage(item)}
           >
             <img src={item.src} alt={`${item.title}, ${item.category}`} loading="lazy" />

@@ -39,7 +39,7 @@ export default function Experience() {
           <article key={entry.company} className="timeline-item fade-up">
             <h3 className="text-xl font-bold">{entry.company}</h3>
             <p className="text-slate-300 mt-1">{entry.role}</p>
-            <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-300">
+            <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-300 experience-points">
               {entry.points.map((point) => (
                 <li key={point}>• {point}</li>
               ))}

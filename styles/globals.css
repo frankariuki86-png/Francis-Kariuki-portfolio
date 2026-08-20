@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,7 +29,7 @@ html {
 }
 
 body {
-  font-family: Manrope, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1285,8 +1285,28 @@ textarea:focus {
     grid-row: 3;
   }
 
+  .editorial-project.image-right .project-preview-column,
+  .editorial-project.image-left .project-preview-column {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .editorial-project.image-right .project-copy-column,
+  .editorial-project.image-left .project-copy-column {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
   .editorial-project:not(.animate) .project-preview-column,
   .editorial-project:not(.animate) .project-copy-column {
+    transform: translateY(14px);
+    opacity: 1;
+  }
+
+  .editorial-project.image-right:not(.animate) .project-preview-column,
+  .editorial-project.image-right:not(.animate) .project-copy-column,
+  .editorial-project.image-left:not(.animate) .project-preview-column,
+  .editorial-project.image-left:not(.animate) .project-copy-column {
     transform: translateY(14px);
   }
 }
@@ -1330,6 +1350,7 @@ body {
 .header-logo { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border: 2px solid #10b981; border-radius: 50%; color: #047857; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
 .header-greeting { display: inline-flex; align-items: baseline; color: #17201c; font-size: 0.9rem; font-weight: 700; white-space: nowrap; }
 .header-greeting strong { color: #10b981; }
+.hero-mobile-title, .hero-short-description, .about-more { display: none; }
 .mobile-menu { background: rgba(23, 32, 28, 0.16); }
 .mobile-menu-inner { background: #ffffff; border-color: #dde7e1; }
 
@@ -1441,8 +1462,35 @@ footer { background: #065f46; border-color: #047857 !important; color: #ffffff; 
   .nav-shell .container { min-height: 60px; padding-top: 0.7rem; padding-bottom: 0.7rem; }
   .page-shell { padding-top: 60px; }
   .header-greeting { max-width: calc(100vw - 5rem); overflow: hidden; text-overflow: ellipsis; font-size: 0.82rem; }
+  .hero-name, .hero-long-description, .float-tag, .hero-grid-pattern, .stats-grid { display: none; }
+  .hero-mobile-title { display: block; margin-top: 0.8rem; color: #17201c; font-size: clamp(1.85rem, 8vw, 2.35rem); line-height: 1.08; font-weight: 800; }
+  .hero-short-description { display: block; }
+  .hero-photo-wrap { margin-top: 1.25rem; }
+  .about-section > .grid { gap: 1.25rem; }
+  .about-section > .grid > .about-desktop-photo { display: none; }
+  .about-section:not(.about-expanded) .section-sub:nth-of-type(n+2) { display: none; }
+  .about-more { display: inline-flex; margin-top: 0.8rem; }
+  .editorial-project.mobile-project-hidden,
+  .gallery-section:not(.gallery-expanded) .mobile-art-hidden,
+  .services-section:not(.services-expanded) .mobile-service-hidden { display: none; }
+  .browser-viewport { max-height: 200px; aspect-ratio: 16 / 9; }
+  .project-description { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .skills-section:not(.skills-expanded) .skills-category:nth-child(1) .skills-tool-card:nth-child(n+4),
+  .skills-section:not(.skills-expanded) .skills-category:nth-child(2) .skills-tool-card:nth-child(n+2),
+  .skills-section:not(.skills-expanded) .skills-category:nth-child(3) .skills-tool-card:nth-child(n+2),
+  .skills-section:not(.skills-expanded) .skills-category:nth-child(4) .skills-tool-card:nth-child(n+2) { display: none; }
+  #why { display: none; }
+  .technology-focus { padding: 1rem; gap: 1rem; }
+  .technology-focus-visual { min-height: 90px; max-height: 90px; }
+  .technology-focus-visual img { min-height: 90px; }
+  .technology-focus-copy .section-sub { margin-top: 0.5rem; }
+  .technology-pillars { display: none; }
+  .contact-visual { display: none; }
+  footer .grid > div:nth-child(2) { display: none; }
+  .contact-card { min-height: 72px; padding: 0.8rem; }
+  .section { margin-top: 2.8rem; }
+  .section-sub { line-height: 1.55; }
   .skills-more { display: inline-flex; }
-  .skills-section:not(.skills-expanded) .skills-tool-card:nth-child(n+3) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

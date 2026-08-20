@@ -4,6 +4,7 @@ import { portfolioConfig, profileImage } from '../data/portfolioConfig'
 export default function About() {
   const { identity } = portfolioConfig
   const [profileImageFailed, setProfileImageFailed] = useState(false)
+  const [aboutExpanded, setAboutExpanded] = useState(false)
 
   const highlights = [
     {
@@ -24,7 +25,7 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="section fade-up">
+    <section id="about" className={`section about-section ${aboutExpanded ? 'about-expanded' : ''} fade-up`}>
       <div className="grid lg:grid-cols-2 gap-10 items-center">
         <div className="hero-photo-wrap max-w-none about-desktop-photo">
             {profileImageFailed ? (
@@ -50,6 +51,10 @@ export default function About() {
           <p className="section-sub mt-4">
             My experience combines software development, business systems, databases, IT infrastructure, graphic design and digital marketing.
           </p>
+
+          <button type="button" className="btn-ghost about-more" onClick={() => setAboutExpanded((value) => !value)}>
+            {aboutExpanded ? 'Show Less ↑' : 'Read More About Me →'}
+          </button>
 
           <div className="about-mobile-photo hero-photo-wrap" aria-hidden="true">
             {profileImageFailed ? (

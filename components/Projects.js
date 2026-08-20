@@ -48,7 +48,7 @@ function ProjectPreview({ project, imageSrc }) {
 }
 
 const ProjectCard = ({ project, imageSrc }) => (
-  <article className={`editorial-project ${project.featured ? 'featured-project' : ''} ${project.order % 2 === 1 ? 'image-right' : 'image-left'} fade-up`}>
+  <article className={`editorial-project ${project.featured ? 'featured-project' : ''} ${project.mobileHidden ? 'mobile-project-hidden' : ''} ${project.order % 2 === 1 ? 'image-right' : 'image-left'} fade-up`}>
     <span className="project-number project-row-number">{String(project.order).padStart(2, '0')}</span>
     <div className="project-preview-column">
       <ProjectPreview project={project} imageSrc={imageSrc} />
@@ -58,7 +58,7 @@ const ProjectCard = ({ project, imageSrc }) => (
       <span className="badge">{project.category}</span>
       {project.comingSoon && <span className="project-status">COMING SOON <small>Currently in Development</small></span>}
       <h3 className="mt-3 text-3xl font-semibold tracking-tight">{project.title}</h3>
-      <p className="mt-4 text-slate-300 text-sm md:text-base leading-7">{project.description}</p>
+      <p className="project-description mt-4 text-slate-300 text-sm md:text-base leading-7">{project.description}</p>
 
       <div className="mt-5 flex flex-wrap gap-2">
         {project.tech.map((item) => <span key={item} className="tech-badge">{item}</span>)}
@@ -74,10 +74,9 @@ const ProjectCard = ({ project, imageSrc }) => (
 export default function Projects(){
   const { projects, images } = portfolioConfig
   const [showAll, setShowAll] = useState(false)
-  const visibleProjects = showAll ? projects : projects.slice(0, 3)
 
   return (
-    <section id="projects" className="section fade-up">
+    <section id="projects" className={`section projects-section ${showAll ? 'projects-expanded' : ''} fade-up`}>
       <div>
         <p className="section-kicker">Featured Projects</p>
         <h2 className="section-title">Selected Work</h2>
@@ -85,10 +84,10 @@ export default function Projects(){
       </div>
 
       <div className="projects-list mt-8">
-        {visibleProjects.map((project, index) => (
+        {projects.map((project, index) => (
           <ProjectCard
             key={project.key}
-            project={{ ...project, order: index + 1 }}
+            project={{ ...project, order: index + 1, mobileHidden: index > 1 }}
             imageSrc={images.projects[project.key]}
           />
         ))}
