@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function ServiceIcon({ title }) {
   const common = {
@@ -52,7 +52,17 @@ const services = [
 
 export default function Services() {
   const [showAll, setShowAll] = useState(false)
-  const visibleServices = services
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateViewport = () => setIsMobile(mediaQuery.matches)
+    updateViewport()
+    mediaQuery.addEventListener('change', updateViewport)
+    return () => mediaQuery.removeEventListener('change', updateViewport)
+  }, [])
+
+  const visibleServices = isMobile && !showAll ? services.slice(0, 3) : services
 
   return (
     <section id="services" className={`section services-section ${showAll ? 'services-expanded' : ''} fade-up`}>
@@ -62,7 +72,7 @@ export default function Services() {
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {visibleServices.map((service, index) => (
-          <div key={service.title} className={index > 3 ? 'mobile-service-hidden' : ''}>
+          <div key={service.title}>
             <Card index={index + 1} title={service.title} desc={service.desc} />
           </div>
         ))}

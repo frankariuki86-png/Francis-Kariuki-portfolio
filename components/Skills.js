@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const descriptions = {
   Development: 'Frontend and backend application development',
@@ -28,6 +28,15 @@ const Category = ({ index, title, items }) => (
 
 export default function Skills(){
   const [showAll, setShowAll] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateViewport = () => setIsMobile(mediaQuery.matches)
+    updateViewport()
+    mediaQuery.addEventListener('change', updateViewport)
+    return () => mediaQuery.removeEventListener('change', updateViewport)
+  }, [])
   const categories = [
     {
       title: 'Development',
@@ -54,7 +63,7 @@ export default function Skills(){
       <p className="section-sub">A balanced stack across software engineering, data systems and IT operations.</p>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {categories.map((category, index) => (
+        {(isMobile && !showAll ? categories.slice(0, 1) : categories).map((category, index) => (
           <Category key={category.title} index={index + 1} title={category.title} items={category.items} />
         ))}
       </div>

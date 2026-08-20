@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { portfolioConfig } from '../data/portfolioConfig'
 
 function DashboardPreview({ project }) {
@@ -74,6 +74,17 @@ const ProjectCard = ({ project, imageSrc }) => (
 export default function Projects(){
   const { projects, images } = portfolioConfig
   const [showAll, setShowAll] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateViewport = () => setIsMobile(mediaQuery.matches)
+    updateViewport()
+    mediaQuery.addEventListener('change', updateViewport)
+    return () => mediaQuery.removeEventListener('change', updateViewport)
+  }, [])
+
+  const visibleProjects = isMobile && !showAll ? projects.slice(0, 2) : projects
 
   return (
     <section id="projects" className={`section projects-section ${showAll ? 'projects-expanded' : ''} fade-up`}>
@@ -84,10 +95,10 @@ export default function Projects(){
       </div>
 
       <div className="projects-list mt-8">
-        {projects.map((project, index) => (
+        {visibleProjects.map((project, index) => (
           <ProjectCard
             key={project.key}
-            project={{ ...project, order: index + 1, mobileHidden: index > 1 }}
+            project={{ ...project, order: index + 1 }}
             imageSrc={images.projects[project.key]}
           />
         ))}

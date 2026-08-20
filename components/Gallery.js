@@ -5,7 +5,16 @@ export default function Gallery(){
   const [activeCategory, setActiveCategory] = useState('All')
   const [activeImage, setActiveImage] = useState(null)
   const [showAll, setShowAll] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const images = portfolioConfig.images.graphicDesign
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateViewport = () => setIsMobile(mediaQuery.matches)
+    updateViewport()
+    mediaQuery.addEventListener('change', updateViewport)
+    return () => mediaQuery.removeEventListener('change', updateViewport)
+  }, [])
 
   const categories = ['All', 'Branding', 'Posters', 'Social Media', 'Certificates', 'Campaign Designs']
 
@@ -13,7 +22,7 @@ export default function Gallery(){
     if (activeCategory === 'All') return images
     return images.filter((item) => item.category === activeCategory)
   }, [activeCategory, images])
-  const visibleImages = filteredImages
+  const visibleImages = isMobile && !showAll && activeCategory === 'All' ? filteredImages.slice(0, 1) : filteredImages
 
   const activeIndex = activeImage ? filteredImages.findIndex((item) => item.src === activeImage.src) : -1
   const showPrevious = () => {
@@ -60,7 +69,7 @@ export default function Gallery(){
           <button
             key={item.src}
             type="button"
-            className={`gallery-card ${index > 3 ? 'mobile-art-hidden' : ''} ${item.category === 'Branding' ? 'tall' : ''} ${item.category === 'Certificates' ? 'wide' : ''}`}
+            className={`gallery-card ${item.category === 'Branding' ? 'tall' : ''} ${item.category === 'Certificates' ? 'wide' : ''}`}
             onClick={() => setActiveImage(item)}
           >
             <img src={item.src} alt={`${item.title}, ${item.category}`} loading="lazy" />
