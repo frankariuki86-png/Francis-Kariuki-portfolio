@@ -4,17 +4,8 @@ import { portfolioConfig } from '../data/portfolioConfig'
 export default function Gallery(){
   const [activeCategory, setActiveCategory] = useState('All')
   const [activeImage, setActiveImage] = useState(null)
-  const [showAll, setShowAll] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const images = portfolioConfig.images.graphicDesign
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
-    const updateViewport = () => setIsMobile(mediaQuery.matches)
-    updateViewport()
-    mediaQuery.addEventListener('change', updateViewport)
-    return () => mediaQuery.removeEventListener('change', updateViewport)
-  }, [])
 
   const categories = ['All', 'Branding', 'Posters', 'Social Media', 'Certificates', 'Campaign Designs']
 
@@ -22,7 +13,7 @@ export default function Gallery(){
     if (activeCategory === 'All') return images
     return images.filter((item) => item.category === activeCategory)
   }, [activeCategory, images])
-  const visibleImages = isMobile && !showAll && activeCategory === 'All' ? filteredImages.slice(0, 1) : filteredImages
+  const visibleImages = filteredImages
 
   const activeIndex = activeImage ? filteredImages.findIndex((item) => item.src === activeImage.src) : -1
   const showPrevious = () => {
@@ -46,7 +37,7 @@ export default function Gallery(){
   })
 
   return (
-    <section id="gallery" className={`section gallery-section ${showAll ? 'gallery-expanded' : ''} fade-up`}>
+    <section id="gallery" className="section gallery-section fade-up">
       <p className="section-kicker">Creative Work</p>
       <h2 className="section-title">Creative Work</h2>
       <p className="section-sub">Design, branding and digital content created for businesses, organizations and social media.</p>
@@ -65,7 +56,7 @@ export default function Gallery(){
       </div>
 
       <div className="gallery-masonry editorial-gallery">
-        {visibleImages.map((item, index) => (
+        {visibleImages.map((item) => (
           <button
             key={item.src}
             type="button"
@@ -81,11 +72,6 @@ export default function Gallery(){
         ))}
       </div>
 
-      {activeCategory === 'All' && images.length > 6 && (
-        <button type="button" className="btn-ghost content-more" onClick={() => setShowAll((value) => !value)}>
-          {showAll ? 'Show Less ↑' : 'View All Creative Work ↓'}
-        </button>
-      )}
 
       {activeImage ? (
         <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setActiveImage(null)}>
