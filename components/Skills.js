@@ -59,7 +59,7 @@ export default function Skills(){
         ))}
       </div>
       <button type="button" className="btn-ghost content-more skills-more" onClick={() => setShowAll((value) => !value)}>
-        {showAll ? 'Show Key Technologies ↑' : 'View More Technologies →'}
+        {showAll ? 'Show Less ↑' : 'See More Technologies ↓'}
       </button>
     </section>
   )

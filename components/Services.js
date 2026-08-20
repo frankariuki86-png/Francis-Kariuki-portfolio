@@ -68,7 +68,7 @@ export default function Services() {
         ))}
       </div>
       <button type="button" className="btn-ghost content-more" onClick={() => setShowAll((value) => !value)}>
-        {showAll ? 'Show Core Services ↑' : 'View All Services →'}
+        {showAll ? 'Show Less ↑' : 'View All Services ↓'}
       </button>
     </section>
   )

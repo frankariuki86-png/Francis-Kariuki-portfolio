@@ -93,7 +93,7 @@ export default function Projects(){
         ))}
       </div>
       <button type="button" className="btn-ghost projects-more" onClick={() => setShowAll((value) => !value)}>
-        {showAll ? 'Show Featured Projects ↑' : 'View All Projects →'}
+        {showAll ? 'Show Less ↑' : 'View All Projects ↓'}
       </button>
     </section>
   )

@@ -74,7 +74,7 @@ export default function Gallery(){
 
       {activeCategory === 'All' && images.length > 6 && (
         <button type="button" className="btn-ghost content-more" onClick={() => setShowAll((value) => !value)}>
-          {showAll ? 'Show Featured Artwork ↑' : 'View All Creative Work →'}
+          {showAll ? 'Show Less ↑' : 'View All Creative Work ↓'}
         </button>
       )}
 
