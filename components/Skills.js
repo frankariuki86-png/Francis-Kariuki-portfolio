@@ -1,30 +1,59 @@
-const Category = ({title, items}) => (
-  <div className="p-4 glass-card rounded-md">
-    <h4 className="font-semibold">{title}</h4>
-    <div className="mt-3 flex flex-wrap gap-2">
-      {items.map(i => <span key={i} className="tech-badge">{i}</span>)}
+const descriptions = {
+  Development: 'Frontend and backend application development',
+  Databases: 'Structured data and application storage',
+  Tools: 'Version control and service integration',
+  'IT & Infrastructure': 'Networks, devices and technical operations'
+}
+
+const Category = ({ index, title, items }) => (
+  <article className="skills-category fade-up">
+    <div className="skills-category-heading">
+      <span className="skills-category-number">{String(index).padStart(2, '0')}</span>
+      <h3 className="skills-category-title">{title}</h3>
     </div>
-  </div>
+    <p className="skills-category-description">{descriptions[title]}</p>
+    <div className="skills-tool-grid">
+      {items.map((item) => (
+        <div key={item} className="skills-tool-card">
+          <span className="skills-tool-icon" aria-hidden="true">◆</span>
+          <span className="skills-tool-name">{item}</span>
+          <span className="skills-tool-description">Technology &amp; tools</span>
+        </div>
+      ))}
+    </div>
+  </article>
 )
 
 export default function Skills(){
+  const categories = [
+    {
+      title: 'Development',
+      items: ['React.js', 'Next.js', 'JavaScript', 'Node.js', 'Express.js', 'HTML5', 'CSS3', 'Tailwind CSS', 'Vite']
+    },
+    {
+      title: 'Databases',
+      items: ['PostgreSQL', 'MySQL', 'SQL', 'Supabase', 'DB2']
+    },
+    {
+      title: 'Tools',
+      items: ['Git', 'GitHub', 'REST APIs']
+    },
+    {
+      title: 'IT & Infrastructure',
+      items: ['Networking', 'Wi-Fi', 'Routers', 'CCTV', 'Access Control', 'Computer Repair', 'Printer Configuration']
+    }
+  ]
+
   return (
-    <section id="skills" className="mt-16 py-12">
-      <h2 className="text-2xl font-semibold">Skills</h2>
-      <div className="mt-4 section-banner">
-        <img src="/images/skills.svg" alt="Coding skills" />
-        <div className="banner-overlay" />
-        <div className="banner-title">Core Technical Skills</div>
-      </div>
+    <section id="skills" className="section skills-section fade-up">
+      <p className="section-kicker">Tools I Build With</p>
+      <h2 className="section-title">Tools I Build With</h2>
+      <p className="section-sub">A balanced stack across software engineering, data systems and IT operations.</p>
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Category title="Software Development" items={["HTML","CSS","JavaScript","React.js","Node.js","Express.js","Vite","Tailwind CSS","REST APIs","Git & GitHub"]} />
-        <Category title="Databases" items={["MySQL","PostgreSQL","SQL","Database Design","Supabase"]} />
-        <Category title="IT & Networking" items={["Computer Repair","Troubleshooting","Windows Installation","Printer Configuration","Networking","Wi-Fi","Router Configuration","CCTV","Access Control","Office Setup"]} />
-      </div>
-
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Category title="Creative & Digital" items={["Graphic Design","Poster Design","Branding","Photo Editing","Social Media Management","Content Creation"]} />
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {categories.map((category, index) => (
+          <Category key={category.title} index={index + 1} title={category.title} items={category.items} />
+        ))}
       </div>
     </section>
   )

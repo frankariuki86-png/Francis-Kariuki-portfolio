@@ -1,19 +1,91 @@
-export default function Gallery(){
-  return (
-    <section id="gallery" className="mt-16 py-12">
-      <h2 className="text-2xl font-semibold">Graphic Design Showcase</h2>
-      <div className="mt-4 section-banner">
-        <img src="/images/gallery.svg" alt="Design showcase" />
-        <div className="banner-overlay" />
-        <div className="banner-title">Graphic Design Showcase</div>
-      </div>
-      <p className="mt-2 text-slate-600">A gallery for posters, social media graphics, branding and marketing materials. Upload examples to replace placeholders.</p>
+import { useEffect, useMemo, useState } from 'react'
+import { portfolioConfig } from '../data/portfolioConfig'
 
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-        {Array.from({length:8}).map((_,i) => (
-          <div key={i} className="h-36 overflow-hidden rounded-md"><img src={`/images/art${i+1}.svg`} alt={`Artwork ${i+1}`} className="w-full h-full object-cover"/></div>
+export default function Gallery(){
+  const [activeCategory, setActiveCategory] = useState('All')
+  const [activeImage, setActiveImage] = useState(null)
+  const images = portfolioConfig.images.graphicDesign
+
+  const categories = ['All', 'Branding', 'Posters', 'Social Media', 'Certificates', 'Campaign Designs']
+
+  const filteredImages = useMemo(() => {
+    if (activeCategory === 'All') return images
+    return images.filter((item) => item.category === activeCategory)
+  }, [activeCategory, images])
+
+  const activeIndex = activeImage ? filteredImages.findIndex((item) => item.src === activeImage.src) : -1
+  const showPrevious = () => {
+    if (activeIndex < 0) return
+    setActiveImage(filteredImages[(activeIndex - 1 + filteredImages.length) % filteredImages.length])
+  }
+  const showNext = () => {
+    if (activeIndex < 0) return
+    setActiveImage(filteredImages[(activeIndex + 1) % filteredImages.length])
+  }
+
+  useEffect(() => {
+    if (!activeImage) return undefined
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setActiveImage(null)
+      if (event.key === 'ArrowLeft') showPrevious()
+      if (event.key === 'ArrowRight') showNext()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  })
+
+  return (
+    <section id="gallery" className="section fade-up">
+      <p className="section-kicker">Creative Work</p>
+      <h2 className="section-title">Creative Work</h2>
+      <p className="section-sub">Design, branding and digital content created for businesses, organizations and social media.</p>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <button
+            key={category}
+            type="button"
+            onClick={() => setActiveCategory(category)}
+            className={activeCategory === category ? 'btn-primary' : 'btn-ghost'}
+          >
+            {category}
+          </button>
         ))}
       </div>
+
+      <div className="gallery-masonry editorial-gallery">
+        {filteredImages.map((item) => (
+          <button
+            key={item.src}
+            type="button"
+            className={`gallery-card ${item.category === 'Branding' ? 'tall' : ''} ${item.category === 'Certificates' ? 'wide' : ''}`}
+            onClick={() => setActiveImage(item)}
+          >
+            <img src={item.src} alt={`${item.title}, ${item.category}`} loading="lazy" />
+            <span className="gallery-overlay text-left">
+              <span className="text-sm font-semibold">{item.title}</span>
+              <span className="text-sm text-slate-300">{item.category} · View ↗</span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {activeImage ? (
+        <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setActiveImage(null)}>
+          <div className="lightbox-inner" onClick={(event) => event.stopPropagation()}>
+              <div className="lightbox-toolbar">
+                <span>{activeImage.title}</span>
+                <button type="button" onClick={() => setActiveImage(null)} className="lightbox-close" aria-label="Close artwork preview">×</button>
+              </div>
+              <img src={activeImage.src} alt={`${activeImage.title}, ${activeImage.category}`} />
+              <div className="lightbox-controls">
+                <button type="button" onClick={showPrevious} className="btn-ghost" aria-label="Previous artwork">← Previous</button>
+                <span>{activeIndex + 1} / {filteredImages.length}</span>
+                <button type="button" onClick={showNext} className="btn-ghost" aria-label="Next artwork">Next →</button>
+              </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }

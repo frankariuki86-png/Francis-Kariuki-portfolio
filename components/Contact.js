@@ -1,60 +1,225 @@
-export default function Contact(){
-  return (
-    <section id="contact" className="mt-16">
-      <div className="section-title">
-        <h2 className="text-2xl font-semibold">Have a project in mind? Let's build it.</h2>
-      </div>
-      <div className="mt-6 grid md:grid-cols-2 gap-6">
-        <div className="card">
-          <p className="text-slate-600">Reach out via email, phone or social links. I usually respond within 24-48 hours.</p>
-          <ul className="mt-4 text-slate-600 space-y-1">
-            <li><strong>Email:</strong> frankariuki86@gmail.com</li>
-            <li><strong>Phone:</strong> 0711768878</li>
-            <li><strong>WhatsApp:</strong> <a className="text-slate-700 underline" href="https://wa.me/254711768878">+254 711 768 878</a></li>
-            <li><strong>GitHub:</strong> <a className="text-slate-700 underline" href="#">github.com/your-username</a></li>
-            <li><strong>LinkedIn:</strong> <a className="text-slate-700 underline" href="#">linkedin.com/in/your-profile</a></li>
-            <li><strong>Facebook:</strong> <a className="text-slate-700 underline" href="#">facebook.com/your-page</a></li>
-          </ul>
+import { portfolioConfig, buildWhatsAppLink } from '../data/portfolioConfig'
 
-          <div className="mt-4 flex items-center gap-3">
-            <a href="#" aria-label="Facebook" className="text-slate-600">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.12 8.44 9.93v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.61.77-1.61 1.56v1.87h2.74l-.44 2.9h-2.3v7.03C18.34 21.19 22 17.06 22 12.07z"/></svg>
-            </a>
-            <a href="#" aria-label="Instagram" className="text-slate-600">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2a4.8 4.8 0 100 9.6 4.8 4.8 0 000-9.6zm6.4-.9a1.12 1.12 0 11-2.24 0 1.12 1.12 0 012.24 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/></svg>
-            </a>
-            <a href="#" aria-label="LinkedIn" className="text-slate-600">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.554v-5.569c0-1.328-.026-3.035-1.85-3.035-1.853 0-2.136 1.445-2.136 2.939v5.665H9.353V9h3.414v1.561h.049c.476-.9 1.636-1.85 3.366-1.85 3.6 0 4.266 2.369 4.266 5.455v6.785zM5.337 7.433a2.062 2.062 0 110-4.124 2.062 2.062 0 010 4.124zM6.94 20.45H3.735V9H6.94v11.45z"/></svg>
-            </a>
-            <a href="https://wa.me/254711768878" aria-label="WhatsApp" className="text-slate-600">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.86 11.86 0 0012 0C5.373 0 .03 5.344.03 11.97c0 2.108.55 4.166 1.6 5.996L0 24l6.2-1.62A11.93 11.93 0 0012 23.94c6.627 0 11.97-5.344 11.97-11.97 0-3.2-1.246-6.197-3.45-8.49zM12 21.5c-1.31 0-2.6-.34-3.73-.98l-.27-.16-3.68.96.99-3.59-.17-.28A8.34 8.34 0 013.7 12c0-4.6 3.74-8.34 8.34-8.34 4.6 0 8.34 3.74 8.34 8.34 0 4.6-3.74 8.34-8.34 8.34z"/><path d="M17.18 14.45c-.24-.12-1.41-.7-1.63-.78-.22-.08-.39-.12-.56.12-.17.24-.67.78-.81.94-.14.17-.28.19-.52.06-.24-.12-1-0.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.015-.37.105-.49.11-.11.24-.29.36-.44.12-.17.16-.28.25-.46.08-.17.04-.33-.02-.45-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43l-.48-.01c-.17 0-.45.06-.69.33-.24.27-.92.9-.92 2.2 0 1.3.94 2.56 1.07 2.74.12.17 1.85 2.86 4.49 3.9 3.14 1.24 3.14.83 3.71.78.12-.02.99-.4 1.13-.79.14-.38.14-.7.1-.79-.04-.09-.18-.13-.42-.24z"/></svg>
-            </a>
+const iconProps = {
+  width: 18,
+  height: 18,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 1.85,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+  'aria-hidden': true
+}
+
+function MailIcon() {
+  return <svg {...iconProps}><path d="M4 6h16v12H4z" /><path d="m4 7 8 6 8-6" /></svg>
+}
+
+function WhatsAppIcon() {
+  return <svg {...iconProps}><path d="M20 11.5a8 8 0 1 1-3.6-6.7" /><path d="M16.5 8.5 13 12l-2-1" /></svg>
+}
+
+function PhoneIcon() {
+  return <svg {...iconProps}><path d="M6.5 4.5 9 7l-1.5 2.5c1.2 2.4 3.1 4.3 5.5 5.5L15.5 13 18 15.5c.5.5.5 1.2 0 1.7-1 1-2.4 1.4-3.7 1.1-5.7-1.2-10.4-5.9-11.6-11.6C2.4 4.9 2.8 3.5 3.8 2.5c.5-.5 1.2-.5 1.7 0z" /></svg>
+}
+
+function GithubIcon() {
+  return <svg {...iconProps}><path d="M9 19c-4 1.2-4-1.6-5.5-2" /><path d="M15 22v-3.3c0-1 .3-1.8.8-2.4C11.2 16 9 14.4 9 10.5c0-1 .3-1.8.9-2.6-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.7 1a9.5 9.5 0 0 1 4.6 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.5.6.8.9 1.6.9 2.6 0 3.9-2.2 5.5-5.8 5.8.6.6 1 1.7 1 2.9V22" /></svg>
+}
+
+function LinkedInIcon() {
+  return <svg {...iconProps}><path d="M6.5 9.5V18" /><path d="M6.5 6.2v.1" /><path d="M10.2 18v-4.7c0-1.6 1-2.8 2.5-2.8 1.6 0 2.6 1.2 2.6 2.8V18" /><path d="M10.2 13.6V18" /></svg>
+}
+
+function FacebookIcon() {
+  return <svg {...iconProps}><path d="M14 3h3v4h-3c-.6 0-1 .4-1 1v2h4l-.5 4H13v7h-4v-7H6v-4h3V7c0-2.2 1.8-4 4-4z" /></svg>
+}
+
+function ArrowIcon() {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
+}
+
+function StatusDot() {
+  return <span className="status-dot" aria-hidden="true" />
+}
+
+function Card({ href, icon, title, value, note, cta, ariaLabel }) {
+  return (
+    <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="contact-card" aria-label={ariaLabel}>
+      <div className="contact-card-icon">{icon}</div>
+      <div className="contact-card-body">
+        <div className="contact-card-title">{title}</div>
+        <div className="contact-card-value">{value}</div>
+        <div className="contact-card-note">{note}</div>
+        <div className="contact-card-cta">
+          <span>{cta}</span>
+          <ArrowIcon />
+        </div>
+      </div>
+    </a>
+  )
+}
+
+function SocialLinks() {
+  const { social } = portfolioConfig
+  const { contact } = portfolioConfig
+  const whatsappHref = buildWhatsAppLink(contact.whatsappNumber, contact.whatsappMessage)
+
+  const items = [
+    { key: 'github', label: 'GitHub', href: social.github, icon: <GithubIcon /> },
+    { key: 'linkedin', label: 'LinkedIn', href: social.linkedin, icon: <LinkedInIcon /> },
+    { key: 'facebook', label: 'Facebook', href: social.facebook, icon: <FacebookIcon /> },
+    { key: 'whatsapp', label: 'WhatsApp', href: whatsappHref, icon: <WhatsAppIcon /> }
+  ].filter((item) => Boolean(item.href))
+
+  return (
+    <div className="contact-social-row">
+      {items.map((item) => (
+        <a
+          key={item.key}
+          href={item.href}
+          target="_blank"
+          rel="noreferrer"
+          className="social-icon-button"
+          aria-label={item.label}
+          title={item.label}
+        >
+          {item.icon}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+export default function Contact(){
+  const { contact, images } = portfolioConfig
+  const whatsappHref = buildWhatsAppLink(contact.whatsappNumber, contact.whatsappMessage)
+  const projectTypeOptions = [
+    'Web Development',
+    'Software Development',
+    'ERP / POS',
+    'IT Support',
+    'Networking',
+    'CCTV / Access Control',
+    'Graphic Design',
+    'Social Media Management',
+    'Other'
+  ]
+
+  return (
+    <section id="contact" className="section fade-up">
+      <div className="contact-status">
+        <StatusDot />
+        <span>AVAILABLE FOR PROJECTS</span>
+      </div>
+
+      <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] items-start">
+        <div className="space-y-6">
+          <div>
+            <p className="section-kicker">Let's Talk</p>
+            <h2 className="section-title">Let's build something useful.</h2>
+            <p className="section-sub">
+              Have a project, business idea or technology challenge? Let's talk and turn it into a practical solution.
+            </p>
+            <p className="section-sub mt-4">
+              I'm available for software development, websites, business systems, IT solutions, graphic design and digital projects.
+            </p>
+          </div>
+
+          <div className="grid gap-4">
+            <Card
+              href={`mailto:${contact.email}`}
+              icon={<MailIcon />}
+              title="Email Me"
+              value={contact.email}
+              note="Best for project enquiries & collaborations"
+              cta="Send Email →"
+              ariaLabel={`Send an email to ${contact.email}`}
+            />
+            <Card
+              href={whatsappHref}
+              icon={<WhatsAppIcon />}
+              title="WhatsApp"
+              value={contact.phoneDisplay}
+              note="Quick conversations & project enquiries"
+              cta="Chat on WhatsApp →"
+              ariaLabel={`Chat on WhatsApp at ${contact.phoneDisplay}`}
+            />
+            <Card
+              href={`tel:${contact.phone}`}
+              icon={<PhoneIcon />}
+              title="Call Me"
+              value={contact.phoneDisplay}
+              note="Available for project discussions"
+              cta="Call Now →"
+              ariaLabel={`Call ${contact.phoneDisplay}`}
+            />
+          </div>
+
+          <div className="panel p-5">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-lg font-semibold">Connect with me</h3>
+              <span className="text-xs uppercase tracking-[0.2em] text-slate-400">Social</span>
+            </div>
+            <div className="mt-4">
+              <SocialLinks />
+            </div>
           </div>
         </div>
 
-        <form className="p-6 card rounded-md space-y-4">
-          <div>
-            <label className="block text-sm text-slate-700">Name</label>
-            <input type="text" className="mt-1" />
+        <div className="space-y-6">
+          <div className="contact-visual panel">
+            <img
+              src={images.contactImage}
+              alt="Modern technology workspace"
+              className="contact-visual-image"
+              onError={(event) => {
+                event.currentTarget.src = images.contactImageLocal
+              }}
+            />
+            <div className="contact-visual-overlay" />
+            <div className="contact-visual-chip">
+              <span className="status-dot" />
+              <span>Available for projects</span>
+            </div>
+            <div className="contact-visual-tag">Software • Web • IT • Digital</div>
           </div>
-          <div>
-            <label className="block text-sm text-slate-700">Email</label>
-            <input type="email" className="mt-1" />
-          </div>
-          <div>
-            <label className="block text-sm text-slate-700">Phone</label>
-            <input type="text" className="mt-1" />
-          </div>
-          <div>
-            <label className="block text-sm text-slate-700">Project Type</label>
-            <input type="text" className="mt-1" />
-          </div>
-          <div>
-            <label className="block text-sm text-slate-700">Message</label>
-            <textarea className="mt-1" rows="4" />
-          </div>
-          <button type="submit" className="btn-primary">Send Message</button>
-        </form>
+
+          <form id="contact-form" className="panel p-6 space-y-4" noValidate>
+            <div>
+              <h3 className="text-lg font-semibold">Start a conversation</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-slate-300" htmlFor="contact-name">Full Name</label>
+                <input id="contact-name" name="name" type="text" className="mt-1" placeholder="Your full name" required minLength={2} />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-300" htmlFor="contact-email">Email Address</label>
+                <input id="contact-email" name="email" type="email" className="mt-1" placeholder="you@example.com" required />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-300" htmlFor="contact-phone">Phone Number</label>
+                <input id="contact-phone" name="phone" type="tel" className="mt-1" placeholder="+254 7xx xxx xxx" pattern="[0-9+\s()-]{8,}" />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-300" htmlFor="contact-project-type">Project Type</label>
+                <select id="contact-project-type" name="projectType" className="mt-1" defaultValue="" required>
+                  <option value="" disabled>Select project type</option>
+                  {projectTypeOptions.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm text-slate-300" htmlFor="contact-message">Message</label>
+              <textarea id="contact-message" name="message" className="mt-1" rows="4" placeholder="Tell me about your idea" required minLength={10} />
+            </div>
+            <button type="submit" className="btn-primary">Send Message →</button>
+          </form>
+        </div>
       </div>
     </section>
   )

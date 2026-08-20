@@ -13,17 +13,17 @@ import Footer from '../components/Footer'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <main className="container py-12">
+    <div className="page-shell">
+      <main className="container py-10 md:py-14">
         <Hero />
+        <TechStack />
         <About />
         <Experience />
         <Projects />
-        <Skills />
         <Services />
+        <Skills />
         <DigitalMarketing />
         <Gallery />
-        <TechStack />
         <WhyWorkWithMe />
         <Contact />
       </main>

@@ -1,25 +1,22 @@
-const Item = ({title, desc}) => (
-  <div className="p-4 glass-card rounded-md">
-    <h4 className="font-semibold">{title}</h4>
-    <p className="mt-2 text-slate-600">{desc}</p>
-  </div>
+const Item = ({ index, title, desc }) => (
+  <article className="panel p-5 fade-up">
+    <div className="text-xs uppercase tracking-[0.24em] text-slate-400">0{index}</div>
+    <h4 className="mt-4 text-lg font-semibold">{title}</h4>
+    <p className="mt-3 text-slate-300 text-sm leading-7">{desc}</p>
+  </article>
 )
 
 export default function WhyWorkWithMe(){
   return (
-    <section id="why" className="mt-16 py-12">
-      <h2 className="text-2xl font-semibold">Why Work With Me</h2>
-      <div className="mt-4 section-banner">
-        <img src="/images/why.svg" alt="Why work with me" />
-        <div className="banner-overlay" />
-        <div className="banner-title">Why choose me?</div>
-      </div>
+    <section id="why" className="section fade-up">
+      <p className="section-kicker">Why Work With Me</p>
+      <h2 className="section-title">Why Work With Me</h2>
 
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Item title="Problem Solver" desc="I focus on building practical solutions to real business problems." />
-        <Item title="Full-Stack Capability" desc="I can work across frontend, backend, APIs and databases." />
-        <Item title="Technical + Creative" desc="I combine software engineering with design and digital marketing." />
-        <Item title="Business-Focused" desc="I understand both technology and real-world business needs." />
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Item index={1} title="Engineering Mindset" desc="I approach problems through structured software engineering." />
+        <Item index={2} title="Practical Solutions" desc="I focus on useful technology rather than unnecessary complexity." />
+        <Item index={3} title="Full-Stack Capability" desc="Frontend, backend, APIs and databases." />
+        <Item index={4} title="Technical + Creative" desc="Engineering combined with design and digital communication." />
       </div>
     </section>
   )

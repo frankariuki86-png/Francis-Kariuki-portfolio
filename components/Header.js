@@ -1,26 +1,51 @@
 import { useState, useEffect } from 'react'
+import { portfolioConfig } from '../data/portfolioConfig'
 
 export default function Header(){
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { identity } = portfolioConfig
+
+  const links = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Services', href: '#services' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Contact', href: '#contact' }
+  ]
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [open])
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <nav className="py-4 border-b nav-sticky">
-      <div className="container flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3">
-          <img src="/favicon.svg" alt="logo" style={{width:34,height:34}}/>
-          <span className="text-lg font-semibold">Francis Kariuki</span>
+    <nav className={`nav-shell ${scrolled ? 'scrolled' : ''}`}>
+      <div className="container flex items-center justify-between py-4">
+        <a href="#home" className="flex items-center gap-3">
+          <div className="font-black tracking-[0.2em] text-sm">FK.</div>
+          <div className="hidden sm:block text-sm text-slate-300">Francis Kariuki</div>
         </a>
 
-        <div className="hidden md:flex items-center gap-6 text-slate-700">
-          <a href="#about" className="hover:text-slate-900 transition">About</a>
-          <a href="#projects" className="hover:text-slate-900 transition">Projects</a>
-          <a href="#services" className="hover:text-slate-900 transition">Services</a>
-          <a href="#contact" className="inline-flex items-center px-3 py-2 btn-primary">Contact</a>
+        <div className="hidden md:flex items-center gap-6">
+          {links.map(link => (
+            <a key={link.label} href={link.href} className="nav-link">
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        <div className="hidden md:block">
+          <a href="#contact" className="nav-cta">Let's Talk ↗</a>
         </div>
 
         <button className="md:hidden p-2" onClick={() => setOpen(true)} aria-label="Open menu">
@@ -33,8 +58,8 @@ export default function Header(){
         <div className="mobile-menu-inner">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <img src="/favicon.svg" alt="logo" style={{width:34,height:34}}/>
-              <span className="font-semibold">Francis Kariuki</span>
+              <div className="font-black tracking-[0.2em] text-sm">FK.</div>
+              <div className="text-sm text-slate-300">Francis Kariuki</div>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-2">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -42,11 +67,14 @@ export default function Header(){
           </div>
 
           <nav className="flex flex-col gap-4">
-            <a href="#about" onClick={() => setOpen(false)}>About</a>
-            <a href="#projects" onClick={() => setOpen(false)}>Projects</a>
-            <a href="#services" onClick={() => setOpen(false)}>Services</a>
-            <a href="#skills" onClick={() => setOpen(false)}>Skills</a>
-            <a href="#contact" className="btn-primary inline-block text-center" onClick={() => setOpen(false)}>Contact</a>
+            {links.map(link => (
+              <a key={link.label} href={link.href} className="nav-link text-lg" onClick={() => setOpen(false)}>
+                {link.label}
+              </a>
+            ))}
+            <a href="#contact" className="nav-cta inline-flex mt-3" onClick={() => setOpen(false)}>
+              Let's Talk ↗
+            </a>
           </nav>
         </div>
       </div>
