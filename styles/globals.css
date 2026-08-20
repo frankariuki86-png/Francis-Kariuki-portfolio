@@ -1414,6 +1414,17 @@ footer { background: #065f46; border-color: #047857 !important; color: #ffffff; 
 
   .hero-photo-wrap { max-width: min(58vw, 220px); }
   .hero-photo-wrap img, .profile-photo-placeholder { height: auto; aspect-ratio: 1 / 1; }
+  #about .hero-photo-wrap {
+    width: min(58vw, 220px);
+    max-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #about .hero-photo-wrap img,
+  #about .about-photo-placeholder {
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+  }
   .section { margin-top: 3.5rem; }
   .nav-shell .container { min-height: 60px; padding-top: 0.7rem; padding-bottom: 0.7rem; }
   .page-shell { padding-top: 60px; }
