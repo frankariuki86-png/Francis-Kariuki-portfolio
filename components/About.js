@@ -26,7 +26,7 @@ export default function About() {
   return (
     <section id="about" className="section fade-up">
       <div className="grid lg:grid-cols-2 gap-10 items-center">
-        <div className="hero-photo-wrap max-w-none">
+        <div className="hero-photo-wrap max-w-none about-desktop-photo">
             {profileImageFailed ? (
               <div className="profile-photo-placeholder about-photo-placeholder" role="img" aria-label="Francis Kariuki profile photo placeholder">
                 <span>FK</span>
@@ -50,6 +50,16 @@ export default function About() {
           <p className="section-sub mt-4">
             My experience combines software development, business systems, databases, IT infrastructure, graphic design and digital marketing.
           </p>
+
+          <div className="about-mobile-photo hero-photo-wrap" aria-hidden="true">
+            {profileImageFailed ? (
+              <div className="profile-photo-placeholder about-photo-placeholder">
+                <span>FK</span>
+              </div>
+            ) : (
+              <img src={profileImage} alt="" onError={() => setProfileImageFailed(true)} />
+            )}
+          </div>
 
           <div className="mt-6 grid sm:grid-cols-3 gap-3">
             {highlights.map((item) => (
