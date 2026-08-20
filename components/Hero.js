@@ -52,7 +52,6 @@ export default function Hero() {
           <p className="section-sub hero-long-description">
             Software Engineer, Full-Stack Developer and Founder of BluePeak Tech Solutions, building modern software, web applications and practical technology solutions.
           </p>
-          <p className="section-sub hero-short-description">I build software, web applications and practical technology solutions.</p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#projects" className="btn-primary">View My Work -&gt;</a>
