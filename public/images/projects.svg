@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#06223a"/><stop offset="1" stop-color="#0a3b5a"/></linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g2)"/>
+  <g fill="#dff6f5" font-family="Inter, sans-serif">
+    <text x="60" y="110" font-size="34" font-weight="700">Featured Projects</text>
+    <text x="60" y="155" font-size="18" fill="#bfe8e6">Web, Mobile, ERP, Analytics</text>
+  </g>
+</svg>

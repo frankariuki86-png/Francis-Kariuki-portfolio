@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)"/>
+  <g fill="#ffffff" font-family="Inter, sans-serif">
+    <text x="60" y="110" font-size="34" font-weight="700">About Francis</text>
+    <text x="60" y="155" font-size="18" fill="#9aa6b2">Software Engineer • Founder • Technology Solutions</text>
+  </g>
+</svg>

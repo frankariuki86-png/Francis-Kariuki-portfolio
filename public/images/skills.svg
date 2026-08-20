@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <rect width="100%" height="100%" fill="#0b1320"/>
+  <g fill="#f1f5f9" font-family="Inter, sans-serif">
+    <text x="60" y="110" font-size="34" font-weight="700">Skills & Technologies</text>
+    <text x="60" y="155" font-size="18" fill="#9fb4c8">Full-stack, Databases, Networking, Design</text>
+  </g>
+</svg>

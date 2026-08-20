@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg-dark:#071028;
+  --bg-light:#f4f6f8;
+  --muted:#94a3b8;
+  --card-bg:#fbfaf8;
+  --accent:#c59d3a; /* gold */
+  --accent-dark:#a0792b;
+  --glass: rgba(255,255,255,0.94);
+  --contrast:#071028;
+}
+
+html,body,#__next{height:100%;}
+
+body{
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--contrast);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background-color: var(--bg-light);
+  background-image: radial-gradient(circle at 8% 8%, rgba(7,16,32,0.03), transparent 12%), repeating-linear-gradient(45deg, rgba(7,16,32,0.02) 0 1px, transparent 1px 14px);
+}
+
+.container{max-width:1100px;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
+
+.glass-card{background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.88));border-radius:14px;box-shadow:0 12px 40px rgba(7,12,30,0.08);padding:1rem}
+
+.card{background:var(--card-bg);border-radius:12px;box-shadow:0 10px 30px rgba(7,12,30,0.06);padding:1rem}
+
+.tech-badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-size:0.85rem;background:#fff6e8;color:var(--contrast);border:1px solid rgba(7,12,30,0.04)}
+
+.section-title{display:flex;align-items:center;justify-content:space-between}
+.section-title h2{font-size:1.375rem;font-weight:700}
+.section-sub{color:var(--muted);margin-top:6px}
+
+.section-banner{position:relative;border-radius:10px;overflow:hidden}
+.section-banner img{width:100%;height:220px;object-fit:cover;display:block}
+.banner-overlay{position:absolute;left:0;top:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(7,12,30,0.28),rgba(7,12,30,0.5));pointer-events:none}
+.section-banner .banner-title{position:absolute;left:2rem;bottom:1.2rem;color:var(--card-bg);font-weight:700;font-size:1.25rem;text-shadow:0 6px 18px rgba(7,12,30,0.25)}
+
+.btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-dark));color:var(--contrast);padding:10px 18px;border-radius:10px;font-weight:700;box-shadow:0 16px 40px rgba(197,157,58,0.12);transition:transform .18s ease,opacity .12s;border:1px solid rgba(7,12,30,0.04)}
+.btn-primary:hover{transform:translateY(-3px);opacity:0.98}
+.btn-ghost{background:transparent;border:1px solid #e6edf0;padding:10px 16px;border-radius:10px}
+
+.fade-up{opacity:0;transform:translateY(12px)}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+.fade-up.animate{animation:fadeUp .6s cubic-bezier(.2,.9,.2,1) forwards}
+
+.hero-profile{width:260px;height:260px;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(2,6,23,0.12);border:1px solid rgba(15,23,42,0.04);background:white}
+.hero-profile img{width:100%;height:100%;object-fit:cover;display:block}
+
+input[type="text"],input[type="email"],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6edf0}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 10px 30px rgba(197,157,58,0.08)}
+
+.project-card{border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fffefb,#fcfbf8);transition:transform .18s ease,box-shadow .18s ease;border:1px solid rgba(7,12,30,0.04)}
+.project-card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(7,12,30,0.10)}
+.project-hero{height:220px;background:linear-gradient(180deg,rgba(7,12,30,0.02),rgba(7,12,30,0.03));display:flex;align-items:center;justify-content:center;color:var(--muted)}
+
+.nav-sticky{position:sticky;top:0;backdrop-filter:blur(6px);background:rgba(255,255,255,0.6);z-index:40}
+
+/* Mobile menu styles */
+.mobile-menu{position:fixed;inset:0;z-index:60;visibility:hidden;opacity:0;transition:opacity .24s ease,visibility .24s;display:flex;align-items:flex-start;justify-content:flex-end}
+.mobile-menu.open{visibility:visible;opacity:1}
+.mobile-menu-inner{width:320px;background:linear-gradient(180deg,var(--card-bg),#fff);height:100vh;padding:2rem;box-shadow:-20px 40px 80px rgba(7,12,30,0.12);overflow:auto}
+.mobile-menu a{color:var(--contrast);font-weight:600}
+
+
+.footer-links a{color:var(--muted);margin-right:12px}
+
