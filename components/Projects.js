@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { portfolioConfig } from '../data/portfolioConfig'
 
 function DashboardPreview({ project }) {
@@ -73,21 +73,9 @@ const ProjectCard = ({ project, imageSrc }) => (
 
 export default function Projects(){
   const { projects, images } = portfolioConfig
-  const [showAll, setShowAll] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
-    const updateViewport = () => setIsMobile(mediaQuery.matches)
-    updateViewport()
-    mediaQuery.addEventListener('change', updateViewport)
-    return () => mediaQuery.removeEventListener('change', updateViewport)
-  }, [])
-
-  const visibleProjects = isMobile && !showAll ? projects.slice(0, 2) : projects
 
   return (
-    <section id="projects" className={`section projects-section ${showAll ? 'projects-expanded' : ''} fade-up`}>
+    <section id="projects" className="section projects-section fade-up">
       <div>
         <p className="section-kicker">Featured Projects</p>
         <h2 className="section-title">Selected Work</h2>
@@ -95,7 +83,7 @@ export default function Projects(){
       </div>
 
       <div className="projects-list mt-8">
-        {visibleProjects.map((project, index) => (
+        {projects.map((project, index) => (
           <ProjectCard
             key={project.key}
             project={{ ...project, order: index + 1 }}
@@ -103,9 +91,6 @@ export default function Projects(){
           />
         ))}
       </div>
-      <button type="button" className="btn-ghost projects-more" onClick={() => setShowAll((value) => !value)}>
-        {showAll ? 'Show Less ↑' : 'View All Projects ↓'}
-      </button>
     </section>
   )
 }
