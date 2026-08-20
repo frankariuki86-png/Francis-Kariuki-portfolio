@@ -4,6 +4,7 @@ import { portfolioConfig } from '../data/portfolioConfig'
 export default function Gallery(){
   const [activeCategory, setActiveCategory] = useState('All')
   const [activeImage, setActiveImage] = useState(null)
+  const [showAll, setShowAll] = useState(false)
   const images = portfolioConfig.images.graphicDesign
 
   const categories = ['All', 'Branding', 'Posters', 'Social Media', 'Certificates', 'Campaign Designs']
@@ -12,6 +13,7 @@ export default function Gallery(){
     if (activeCategory === 'All') return images
     return images.filter((item) => item.category === activeCategory)
   }, [activeCategory, images])
+  const visibleImages = showAll || activeCategory !== 'All' ? filteredImages : filteredImages.slice(0, 6)
 
   const activeIndex = activeImage ? filteredImages.findIndex((item) => item.src === activeImage.src) : -1
   const showPrevious = () => {
@@ -54,7 +56,7 @@ export default function Gallery(){
       </div>
 
       <div className="gallery-masonry editorial-gallery">
-        {filteredImages.map((item) => (
+        {visibleImages.map((item) => (
           <button
             key={item.src}
             type="button"
@@ -69,6 +71,12 @@ export default function Gallery(){
           </button>
         ))}
       </div>
+
+      {activeCategory === 'All' && images.length > 6 && (
+        <button type="button" className="btn-ghost content-more" onClick={() => setShowAll((value) => !value)}>
+          {showAll ? 'Show Featured Artwork ↑' : 'View All Creative Work →'}
+        </button>
+      )}
 
       {activeImage ? (
         <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setActiveImage(null)}>

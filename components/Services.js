@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 function ServiceIcon({ title }) {
   const common = {
     width: 18,
@@ -49,6 +51,9 @@ const services = [
 ]
 
 export default function Services() {
+  const [showAll, setShowAll] = useState(false)
+  const visibleServices = showAll ? services : services.slice(0, 6)
+
   return (
     <section id="services" className="section fade-up">
       <p className="section-kicker">Services</p>
@@ -56,10 +61,13 @@ export default function Services() {
       <p className="section-sub">Flexible engagement from software and IT infrastructure to branding and digital operations.</p>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {services.map((service, index) => (
+        {visibleServices.map((service, index) => (
           <Card key={service.title} index={index + 1} title={service.title} desc={service.desc} />
         ))}
       </div>
+      <button type="button" className="btn-ghost content-more" onClick={() => setShowAll((value) => !value)}>
+        {showAll ? 'Show Core Services ↑' : 'View All Services →'}
+      </button>
     </section>
   )
 }

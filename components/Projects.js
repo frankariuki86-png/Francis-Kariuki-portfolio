@@ -73,6 +73,8 @@ const ProjectCard = ({ project, imageSrc }) => (
 
 export default function Projects(){
   const { projects, images } = portfolioConfig
+  const [showAll, setShowAll] = useState(false)
+  const visibleProjects = showAll ? projects : projects.slice(0, 3)
 
   return (
     <section id="projects" className="section fade-up">
@@ -83,7 +85,7 @@ export default function Projects(){
       </div>
 
       <div className="projects-list mt-8">
-        {projects.map((project, index) => (
+        {visibleProjects.map((project, index) => (
           <ProjectCard
             key={project.key}
             project={{ ...project, order: index + 1 }}
@@ -91,6 +93,9 @@ export default function Projects(){
           />
         ))}
       </div>
+      <button type="button" className="btn-ghost projects-more" onClick={() => setShowAll((value) => !value)}>
+        {showAll ? 'Show Featured Projects ↑' : 'View All Projects →'}
+      </button>
     </section>
   )
 }

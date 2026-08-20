@@ -4,6 +4,7 @@ import { portfolioConfig } from '../data/portfolioConfig'
 export default function Header(){
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [greeting, setGreeting] = useState('Good evening')
   const { identity } = portfolioConfig
 
   const links = [
@@ -28,12 +29,17 @@ export default function Header(){
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const hour = new Date().getHours()
+    setGreeting(hour >= 5 && hour < 12 ? 'Good morning' : hour >= 12 && hour < 18 ? 'Good afternoon' : 'Good evening')
+  }, [])
+
   return (
     <nav className={`nav-shell ${scrolled ? 'scrolled' : ''}`}>
       <div className="container flex items-center justify-between py-4">
-        <a href="#home" className="flex items-center gap-3">
-          <div className="font-black tracking-[0.2em] text-sm">FK.</div>
-          <div className="hidden sm:block text-sm text-slate-300">Francis Kariuki</div>
+        <a href="#home" className="header-brand" aria-label="Home">
+          <strong className="header-logo">FN.</strong>
+          <span className="header-greeting">{greeting}</span>
         </a>
 
         <div className="hidden md:flex items-center gap-6">
@@ -58,7 +64,7 @@ export default function Header(){
         <div className="mobile-menu-inner">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="font-black tracking-[0.2em] text-sm">FK.</div>
+              <div className="header-logo">FN.</div>
               <div className="text-sm text-slate-300">Francis Kariuki</div>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-2">

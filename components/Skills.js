@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const descriptions = {
   Development: 'Frontend and backend application development',
   Databases: 'Structured data and application storage',
@@ -25,6 +27,7 @@ const Category = ({ index, title, items }) => (
 )
 
 export default function Skills(){
+  const [showAll, setShowAll] = useState(false)
   const categories = [
     {
       title: 'Development',
@@ -45,7 +48,7 @@ export default function Skills(){
   ]
 
   return (
-    <section id="skills" className="section skills-section fade-up">
+    <section id="skills" className={`section skills-section ${showAll ? 'skills-expanded' : ''} fade-up`}>
       <p className="section-kicker">Tools I Build With</p>
       <h2 className="section-title">Tools I Build With</h2>
       <p className="section-sub">A balanced stack across software engineering, data systems and IT operations.</p>
@@ -55,6 +58,9 @@ export default function Skills(){
           <Category key={category.title} index={index + 1} title={category.title} items={category.items} />
         ))}
       </div>
+      <button type="button" className="btn-ghost content-more skills-more" onClick={() => setShowAll((value) => !value)}>
+        {showAll ? 'Show Key Technologies ↑' : 'View More Technologies →'}
+      </button>
     </section>
   )
 }
